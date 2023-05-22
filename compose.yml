@@ -1,0 +1,16 @@
+services:
+  mariadb:
+    image: kakakakakku/mysql-world-database:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      TZ: Asia/Tokyo
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb:/var/lib/mysql
+
+volumes:
+  mariadb:

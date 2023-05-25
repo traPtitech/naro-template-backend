@@ -17,4 +17,4 @@ tasks:
       - docker compose down -v
   db:
     cmds:
-      - docker compose exec mariadb mysql -u root -ppassword
+      - docker compose exec mysql bash

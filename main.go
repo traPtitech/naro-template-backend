@@ -76,6 +76,8 @@ func main() {
 	withAuth.GET("/cities/:cityName", getCityInfoHandler)
 	withAuth.POST("/cities", postCityHandler)
 	withAuth.GET("/whoami", getWhoAmIHandler)
+	withAuth.GET("/countrylist", getCountryListHandler)
+	withAuth.GET("/country/:countryCode", getCityListHandler)
 
 	e.Start(":8080")
 }

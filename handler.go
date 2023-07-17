@@ -34,6 +34,15 @@ type Me struct {
 	Username string `json:"username,omitempty"  db:"username"`
 }
 
+type CountryList struct {
+	CountryCode string `json:"countrycode,omitempty" db:"Code"`
+	CountryName string `json:"name" db:"Name"`
+}
+
+type CityList struct {
+	CityName string `json:"name" db:"Name"`
+}
+
 func signUpHandler(c echo.Context) error {
 	var req LoginRequestBody
 	c.Bind(&req)
@@ -106,6 +115,28 @@ func loginHandler(c echo.Context) error {
 
 	return c.NoContent(http.StatusOK)
 
+}
+
+func getCountryListHandler(c echo.Context) error {
+	var countryList []CountryList
+	err := db.Select(&countryList, "SELECT Code, Name FROM country")
+	if (err != nil) {
+		return c.NoContent(http.StatusInternalServerError)
+	}
+
+	return c.JSON(http.StatusOK, countryList)
+}
+
+func getCityListHandler(c echo.Context) error {
+
+	countryCode := c.Param("countryCode")
+	var cityList []CityList
+	err := db.Select(&cityList, "SELECT Name FROM city WHERE CountryCode=?", countryCode)
+	if (err != nil) {
+		return c.NoContent(http.StatusInternalServerError)
+	}
+
+	return c.JSON(http.StatusOK, cityList)
 }
 
 func getCityInfoHandler(c echo.Context) error {

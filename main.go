@@ -64,12 +64,12 @@ func main() {
 	e.Use(session.Middleware(store))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:5173"},
-        AllowMethods: []string{http.MethodGet, http.MethodPost},
+		AllowMethods: []string{http.MethodGet, http.MethodPost},
 	}))
 
 	e.POST("/login", loginHandler)
 	e.POST("/signup", signUpHandler)
-	e.GET("/ping", func (c echo.Context) error { return c.String(http.StatusOK,"pong")})
+	e.GET("/ping", func(c echo.Context) error { return c.String(http.StatusOK, "pong") })
 
 	withAuth := e.Group("")
 	withAuth.Use(userAuthMiddleware)
